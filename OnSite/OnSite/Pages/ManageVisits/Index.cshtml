@@ -1,0 +1,96 @@
+@page
+@model OnSite.Pages.ManageVisits.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Visit[0].Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Visit[0].SignInTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Visit[0].SignOutTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Visit[0].VehicleId)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visit[0].Area)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visit[0].Badge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visit[0].SignedInBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visit[0].Site)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visit[0].StaffEscort)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visit[0].UnescortedApprovedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Visit[0].Visitor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Visit) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SignInTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SignOutTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Area.Classification)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Badge.BadgeType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SignedInBy.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Site.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffEscort.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnescortedApprovedBy.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Visitor.FirstName)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.VisitId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.VisitId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.VisitId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

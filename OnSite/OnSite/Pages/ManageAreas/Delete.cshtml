@@ -1,0 +1,46 @@
+@page
+@model OnSite.Pages.ManageAreas.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Area</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Area.Floor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Area.Floor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Area.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Area.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Area.Classification)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Area.Classification)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Area.Site)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Area.Site.City)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Area.AreaId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

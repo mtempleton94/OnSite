@@ -1,0 +1,42 @@
+@page
+@model OnSite.Pages.ManageVisitorBadges.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.VisitorBadge[0].BadgeType)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VisitorBadge[0].Site)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.VisitorBadge) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BadgeType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Site.City)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.BadgeId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.BadgeId">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.BadgeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

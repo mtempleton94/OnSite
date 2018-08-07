@@ -1,0 +1,43 @@
+@page
+@model OnSite.Pages.ManageAreas.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Area</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Area.Floor)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Area.Floor)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Area.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Area.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Area.Classification)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Area.Classification)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Area.Site)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Area.Site.City)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Area.AreaId">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
