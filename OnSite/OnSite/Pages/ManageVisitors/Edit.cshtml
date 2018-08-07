@@ -1,0 +1,45 @@
+@page
+@model OnSite.Pages.ManageVisitors.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Visitor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Visitor.VisitorId" />
+            <div class="form-group">
+                <label asp-for="Visitor.FirstName" class="control-label"></label>
+                <input asp-for="Visitor.FirstName" class="form-control" />
+                <span asp-validation-for="Visitor.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Visitor.LastName" class="control-label"></label>
+                <input asp-for="Visitor.LastName" class="form-control" />
+                <span asp-validation-for="Visitor.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Visitor.OrganisationId" class="control-label"></label>
+                <select asp-for="Visitor.OrganisationId" class="form-control" asp-items="ViewBag.OrganisationId"></select>
+                <span asp-validation-for="Visitor.OrganisationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
