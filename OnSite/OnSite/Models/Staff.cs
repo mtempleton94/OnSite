@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnSite.Models
 {
@@ -14,7 +15,9 @@ namespace OnSite.Models
         }
 
         public int StaffId { get; set; }
+        [Display(Name="First Name")]
         public string FirstName { get; set; }
+        [Display(Name="Last Name")]
         public string LastName { get; set; }
         public string Position { get; set; }
         public string Phone { get; set; }

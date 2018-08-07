@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnSite.Models
 {
@@ -15,6 +16,7 @@ namespace OnSite.Models
         public string Floor { get; set; }
         public string Description { get; set; }
         public string Classification { get; set; }
+        [Display(Name="Site")]
         public int SiteId { get; set; }
 
         public Site Site { get; set; }

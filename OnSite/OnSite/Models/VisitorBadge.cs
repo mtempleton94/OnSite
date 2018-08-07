@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnSite.Models
 {
@@ -11,7 +12,9 @@ namespace OnSite.Models
         }
 
         public int BadgeId { get; set; }
+        [Display(Name="Badge Type")]
         public string BadgeType { get; set; }
+        [Display(Name="Site")]
         public int SiteId { get; set; }
 
         public Site Site { get; set; }
