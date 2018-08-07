@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OnSite.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace OnSite
 {
@@ -22,6 +24,10 @@ namespace OnSite
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            // register and configure database context
+            services.AddDbContext<VisitorContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("VisitorContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
