@@ -18,6 +18,8 @@ namespace OnSite.Models
         public string LastName { get; set; }
         [Display(Name="From Organisation")]
         public int OrganisationId { get; set; }
+        [Display(Name = "Passport or Licence Number")]
+        public string IdentificationNumber { get; set; }
 
         public Organisation Organisation { get; set; }
         public ICollection<Visit> Visit { get; set; }

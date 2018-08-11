@@ -33,3 +33,34 @@ body {
         display: none;
     }
 }
+
+td {
+    border: 1px #DDD solid;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: brown;
+    color: #FFF;
+}
+
+.visitor-personal-info {
+    background: red;
+}
+
+.visitor-personal-info .form-group {
+    background: blue;
+}
+
+.visitor-personal-info input, label {
+    display: block;
+}
+
+.visitor-personal-label {
+    text-align: left;
+}
+
+.visitor-data-entry {
+    width: 100%;
+}

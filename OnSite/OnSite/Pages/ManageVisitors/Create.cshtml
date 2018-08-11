@@ -23,6 +23,13 @@
                 <input asp-for="Visitor.LastName" class="form-control" />
                 <span asp-validation-for="Visitor.LastName" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="Visitor.IdentificationNumber" class="control-label"></label>
+                <input asp-for="Visitor.IdentificationNumber" class="form-control" />
+                <span asp-validation-for="Visitor.IdentificationNumber" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Visitor.OrganisationId" class="control-label"></label>
                 <select asp-for="Visitor.OrganisationId" class ="form-control" asp-items="ViewBag.OrganisationId"></select>

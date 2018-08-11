@@ -55,14 +55,16 @@ create table [dbo].[StaffAreaAccess]
 	CONSTRAINT [FK_StaffAreaAccess_AreaID] FOREIGN KEY (AreaID) REFERENCES [dbo].[Area](AreaID)
 );
 
-create table [dbo].[Visitor]
+CREATE TABLE [dbo].[Visitor] 
 (
-	[VisitorID]	INT				NOT NULL	IDENTITY (1, 1),
-	[FirstName]	VARCHAR(20)		NOT NULL,
-	[LastName]	VARCHAR(20)		NOT NULL,
-	[OrganisationID]	INT		NOT NULL, 
-    CONSTRAINT [PK_VisitorID] PRIMARY KEY CLUSTERED ([VisitorID] ASC), 
-    CONSTRAINT [FK_Visitor_OrganisationID] FOREIGN KEY ([OrganisationID]) REFERENCES [dbo].[Organisation](OrganisationID)
+    [VisitorID]            INT          IDENTITY (1, 1) NOT NULL,
+    [FirstName]            VARCHAR (20) NOT NULL,
+    [LastName]             VARCHAR (20) NOT NULL,
+    [IdentificationNumber] VARCHAR (20) NOT NULL,
+    [OrganisationID]       INT          NOT NULL,
+    CONSTRAINT [PK_VisitorID] PRIMARY KEY CLUSTERED ([VisitorID] ASC),
+    CONSTRAINT [AK_Visitor_IdentificationNumber] UNIQUE NONCLUSTERED ([IdentificationNumber] ASC),
+    CONSTRAINT [FK_Visitor_OrganisationID] FOREIGN KEY ([OrganisationID]) REFERENCES [dbo].[Organisation] ([OrganisationID])
 );
 
 create table [dbo].[VisitorBadge]

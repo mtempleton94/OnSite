@@ -254,9 +254,18 @@ namespace OnSite.Models
 
             modelBuilder.Entity<Visitor>(entity =>
             {
+                entity.HasIndex(e => e.IdentificationNumber)
+                    .HasName("AK_Visitor_IdentificationNumber")
+                    .IsUnique();
+
                 entity.Property(e => e.VisitorId).HasColumnName("VisitorID");
 
                 entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IdentificationNumber)
                     .IsRequired()
                     .HasMaxLength(20)
                     .IsUnicode(false);
