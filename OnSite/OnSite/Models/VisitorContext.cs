@@ -29,7 +29,7 @@ namespace OnSite.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Visitor;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Visitor;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;Trusted_Connection=True;");
             }
         }
 
@@ -218,13 +218,11 @@ namespace OnSite.Models
                 entity.HasOne(d => d.Badge)
                     .WithMany(p => p.Visit)
                     .HasForeignKey(d => d.BadgeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Visit_BadgeID");
 
                 entity.HasOne(d => d.SignedInBy)
                     .WithMany(p => p.VisitSignedInBy)
                     .HasForeignKey(d => d.SignedInById)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Visit_SignedInByID");
 
                 entity.HasOne(d => d.Site)
@@ -236,13 +234,11 @@ namespace OnSite.Models
                 entity.HasOne(d => d.StaffEscort)
                     .WithMany(p => p.VisitStaffEscort)
                     .HasForeignKey(d => d.StaffEscortId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Visit_StaffEscortID");
 
                 entity.HasOne(d => d.UnescortedApprovedBy)
                     .WithMany(p => p.VisitUnescortedApprovedBy)
                     .HasForeignKey(d => d.UnescortedApprovedById)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Visit_UnescortedApprovedByID");
 
                 entity.HasOne(d => d.Visitor)

@@ -17,13 +17,13 @@ namespace OnSite.Models
         [Display(Name = "Visitor")]
         public int VisitorId { get; set; }
         [Display(Name = "Assigned Badge")]
-        public int BadgeId { get; set; }
+        public int? BadgeId { get; set; }
         [Display(Name = "Signed In By")]
-        public int SignedInById { get; set; }
+        public int? SignedInById { get; set; }
         [Display(Name = "Escort")]
-        public int StaffEscortId { get; set; }
+        public int? StaffEscortId { get; set; }
         [Display(Name = "Unescorted Approved By")]
-        public int UnescortedApprovedById { get; set; }
+        public int? UnescortedApprovedById { get; set; }
         [Display(Name="Site")]
         public int SiteId { get; set; }
         [Display(Name="Areas Approved to Access")]
