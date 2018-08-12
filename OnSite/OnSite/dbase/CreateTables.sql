@@ -90,6 +90,7 @@ create table [dbo].[Visit]
 	[UnescortedApprovedByID] INT	NOT NULL,
 	[SiteID]		INT				NOT NULL,
 	[AreaID]		INT				NULL,
+	[ApprovalStatus] BIT			NOT NULL,
 	CONSTRAINT [PK_VisitID] PRIMARY KEY CLUSTERED ([VisitID] ASC), 
 	CONSTRAINT [FK_Visit_VisitorID]		FOREIGN KEY ([VisitorID])		REFERENCES [dbo].[Visitor]([VisitorID]),
 	CONSTRAINT [FK_Visit_BadgeID]		FOREIGN KEY ([BadgeID])			REFERENCES [dbo].[VisitorBadge]([BadgeID]),

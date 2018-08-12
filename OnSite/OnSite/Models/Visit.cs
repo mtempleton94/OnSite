@@ -28,6 +28,8 @@ namespace OnSite.Models
         public int SiteId { get; set; }
         [Display(Name="Areas Approved to Access")]
         public int? AreaId { get; set; }
+        [Display(Name ="Visit Approved (true/false)")]
+        public bool ApprovalStatus { get; set; }
 
         public Area Area { get; set; }
         public VisitorBadge Badge { get; set; }

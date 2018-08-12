@@ -25,6 +25,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Visit[0].VehicleId)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Visit[0].ApprovalStatus)
+                </th>
             <th>
                 @Html.DisplayNameFor(model => model.Visit[0].Area)
             </th>
@@ -63,6 +66,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.VehicleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApprovalStatus)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Area.Classification)
