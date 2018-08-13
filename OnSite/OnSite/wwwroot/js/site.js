@@ -62,59 +62,76 @@ function visitorIdentificationUpdated() {
     $.get("/SignIn?handler=Visitors&FirstName=" + firstNameSearch +
         "&LastName=" + lastNameSearch +
         "&IdentificationNumber=" + identificationNumberSearch, function (response) {
-
-        // select the table to populate and clear it
-        var visitorTableBody = $("#visitor-table-body");
-        visitorTableBody.empty();
-
-            var obj = JSON.parse(response);
-            var count = 0;
-            jQuery(obj).each(function (i, item) {
-
-                var organisationName = null;
-                $.get("/SignIn?handler=OrganisationName&OrganisationId=" + item.OrganisationId, function (response) {
-                    organisationName = response;    
-
-                    count++;
-
-                    $(visitorTableBody).append('<tr data-visitorId = ' + item.VisitorId+'>' +
-                            '<td id="FirstNameDisplay_'+count+'">' + item.FirstName + '</td>' +
-                            '<td id="LastNameDisplay_' + count + '">' + item.LastName + '</td>' +
-                            '<td id="OrganisationDisplay_' + count + '">' + organisationName + '</td>' +
-                            '<td id="IdentificationNumberDisplay_' + count + '">' + item.IdentificationNumber + '</td>' +
-                        '</tr>');
-
-                    // bind function to row selection
-                    $('#visitor-table tr').click(function () {
-
-                        // determine which row was selected
-                        var row_index = $(this).index() + 1;
-
-                        // get the id of the selected visitor
-                        var selectedVisitor = $(this).attr("data-visitorId");
-
-                        // show the row as selected
-                        $(this).addClass('selected').siblings().removeClass('selected');
-
-                        // populate the fields when an item from the list is selected
-                        var firstNameDisplay_ID = '#FirstNameDisplay_' + row_index;
-                        $('#firstNameInput').val($(firstNameDisplay_ID).html());
-
-                        // get selected last name
-                        var lastNameDisplay_ID = '#LastNameDisplay_' + row_index;
-                        $('#lastNameInput').val($(lastNameDisplay_ID).html());
-
-                        // get the name of the organisation based on its id
-                        // var organisationDisplay_ID = '#OrganisationDisplay_' + row_index;
-                        // $('#organisationInput').val("g");
-
-                        var identificationNumberDisplay_ID = '#IdentificationNumberDisplay_' + row_index;
-                        $('#identificationNumberInput').val($(identificationNumberDisplay_ID).html());
-
-                    });
-                });
-            });
-        });
+            displayExistingVisitorList(response) 
+    });
 }
+
+//================================================================
+// Populate list of existing visitors when search data entered
+//================================================================
+function displayExistingVisitorList(visitorInfo) {
+
+    // select the html element and clear it
+    var visitorTableBody = $("#visitor-table-body");
+    visitorTableBody.empty();
+
+    var obj = JSON.parse(visitorInfo);
+    var count = 0;
+    jQuery(obj).each(function (i, item) {
+
+        // get org name based on its id
+        var organisationName = getOrganisationName(item.OrganisationId);
+
+        count++;
+
+        $(visitorTableBody).append('<tr data-visitorId = ' + item.VisitorId + '>' +
+            '<td id="FirstNameDisplay_' + count + '">' + item.FirstName + '</td>' +
+            '<td id="LastNameDisplay_' + count + '">' + item.LastName + '</td>' +
+            '<td id="OrganisationDisplay_' + count + '">' + organisationName + '</td>' +
+            '<td id="IdentificationNumberDisplay_' + count + '">' + item.IdentificationNumber + '</td>' +
+            '</tr>');
+
+        // bind function to row selection
+        $('#visitor-table tr').click(function () {
+
+            // determine which row was selected
+            var row_index = $(this).index() + 1;
+
+            // get the id of the selected visitor
+            var selectedVisitor = $(this).attr("data-visitorId");
+
+            // show the row as selected
+            $(this).addClass('selected').siblings().removeClass('selected');
+
+            // populate the fields when an item from the list is selected
+            var firstNameDisplay_ID = '#FirstNameDisplay_' + row_index;
+            $('#firstNameInput').val($(firstNameDisplay_ID).html());
+
+            // get selected last name
+            var lastNameDisplay_ID = '#LastNameDisplay_' + row_index;
+            $('#lastNameInput').val($(lastNameDisplay_ID).html());
+
+            // get the name of the organisation based on its id
+            // var organisationDisplay_ID = '#OrganisationDisplay_' + row_index;
+            // $('#organisationInput').val("g");
+
+            var identificationNumberDisplay_ID = '#IdentificationNumberDisplay_' + row_index;
+            $('#identificationNumberInput').val($(identificationNumberDisplay_ID).html());
+
+        });
+    });
+}
+
+//================================================================
+// Get the name of an organisation based on its id
+//================================================================
+function getOrganisationName(orgId) {
+
+    $.get("/SignIn?handler=OrganisationName&OrganisationId=" + orgId, function (result) {
+        organisationName = result;
+    });
+    return organisationName;
+}
+
 
 
