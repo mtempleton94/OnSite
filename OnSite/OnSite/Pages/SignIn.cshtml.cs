@@ -126,12 +126,27 @@ namespace OnSite.Pages
 
         //=====================================================================
         // Get the name of an organisation based on its ID
-        // CURRENTLY JUST PLACEHOLDER TO RETURN A VALUE
         //=====================================================================
         public ActionResult OnGetOrganisationName(int OrganisationId)
         {
-            string test = "US Government";
-            return Content(test);
+            string orgName =
+               (from organisation in _context.Organisation
+               where organisation.OrganisationId == OrganisationId
+               select organisation.Name).SingleOrDefault();
+            return Content(orgName);
+        }
+
+        //=====================================================================
+        // Get the ID of an organisation based on its name
+        //=====================================================================
+        public ActionResult OnGetOrganisationId(string OrganisationName)
+        {
+            int orgId =
+               (from organisation in _context.Organisation
+                where organisation.Name == OrganisationName
+                select organisation.OrganisationId).SingleOrDefault();
+            string jsonData = JsonConvert.SerializeObject(orgId);
+            return new JsonResult(jsonData);
         }
 
         //=====================================================================

@@ -79,44 +79,23 @@ function displayExistingVisitorList(visitorInfo) {
     var count = 0;
     jQuery(obj).each(function (i, item) {
 
-        // get org name based on its id
-        var organisationName = getOrganisationName(item.OrganisationId);
-
         count++;
+
+        // set organisation name based on id
+        setVisitorOrgName(item.OrganisationId, count);
 
         $(visitorTableBody).append('<tr data-visitorId = ' + item.VisitorId + '>' +
             '<td id="FirstNameDisplay_' + count + '">' + item.FirstName + '</td>' +
             '<td id="LastNameDisplay_' + count + '">' + item.LastName + '</td>' +
-            '<td id="OrganisationDisplay_' + count + '">' + organisationName + '</td>' +
+            '<td id="OrganisationDisplay_' + count + '"></td>' +
             '<td id="IdentificationNumberDisplay_' + count + '">' + item.IdentificationNumber + '</td>' +
             '</tr>');
 
         // bind function to row selection
         $('#visitor-table tr').click(function () {
 
-            // determine which row was selected
-            var row_index = $(this).index() + 1;
-
-            // get the id of the selected visitor
-            var selectedVisitor = $(this).attr("data-visitorId");
-
-            // show the row as selected
-            $(this).addClass('selected').siblings().removeClass('selected');
-
-            // populate the fields when an item from the list is selected
-            var firstNameDisplay_ID = '#FirstNameDisplay_' + row_index;
-            $('#firstNameInput').val($(firstNameDisplay_ID).html());
-
-            // get selected last name
-            var lastNameDisplay_ID = '#LastNameDisplay_' + row_index;
-            $('#lastNameInput').val($(lastNameDisplay_ID).html());
-
-            // get the name of the organisation based on its id
-            // var organisationDisplay_ID = '#OrganisationDisplay_' + row_index;
-            // $('#organisationInput').val("g");
-
-            var identificationNumberDisplay_ID = '#IdentificationNumberDisplay_' + row_index;
-            $('#identificationNumberInput').val($(identificationNumberDisplay_ID).html());
+            //var selectedRow = $(this);
+            existingVisitorSelected($(this)); 
 
         });
     });
@@ -125,12 +104,48 @@ function displayExistingVisitorList(visitorInfo) {
 //================================================================
 // Get the name of an organisation based on its id
 //================================================================
-function getOrganisationName(orgId) {
+function setVisitorOrgName(orgId, rowNum) {
 
     $.get("/SignIn?handler=OrganisationName&OrganisationId=" + orgId, function (result) {
         organisationName = result;
+        $('#OrganisationDisplay_' + rowNum).html(organisationName);
     });
-    return organisationName;
+}
+
+//================================================================
+// Existing visitor record selected from list
+//================================================================
+function existingVisitorSelected(selectedRow) {
+
+    // determine which row was selected
+    var row_index = selectedRow.index() + 1;
+
+    // get the id of the selected visitor
+    var selectedVisitor = selectedRow.attr("data-visitorId");
+
+    // show the row as selected
+    selectedRow.addClass('selected').siblings().removeClass('selected');
+
+    // populate the fields when an item from the list is selected
+    // get selected first name
+    var firstNameDisplay_ID = '#FirstNameDisplay_' + row_index;
+    $('#firstNameInput').val($(firstNameDisplay_ID).html());
+
+    // get selected last name
+    var lastNameDisplay_ID = '#LastNameDisplay_' + row_index;
+    $('#lastNameInput').val($(lastNameDisplay_ID).html());
+
+    // get the name of the organisation based on its id
+    var organisationDisplay_ID = '#OrganisationDisplay_' + row_index;
+    $.get("/SignIn?handler=OrganisationId&OrganisationName=" + $(organisationDisplay_ID).html(), function (result) {
+        organisationId = result;
+        $('#visitorOrganisationInput').val(organisationId);
+    });
+
+    // get selected identification number
+    var identificationNumberDisplay_ID = '#IdentificationNumberDisplay_' + row_index;
+    $('#identificationNumberInput').val($(identificationNumberDisplay_ID).html());
+
 }
 
 
