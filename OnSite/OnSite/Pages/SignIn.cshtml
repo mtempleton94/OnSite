@@ -59,6 +59,10 @@
                 </div>
             </div>
 
+            <!-- Hidden field to store selected user -->
+            <div class="form-group" id="user-id-select" style="display: none;">
+                <select asp-for="Visitor.VisitorId" class="form-control" asp-items="ViewBag.VisitorId"></select>
+            </div>
 
             <!-- Fields to enter visit description and vehicle registration -->
             <div class="container text-center">
@@ -92,21 +96,21 @@
                             </thead>
                             <tbody>
                                 @{
-                                var count = 0;
-                                foreach (var item in Model.OrgSiteList)
-                                {
-                                    count++;
-                                    <tr id="OrgSiteEntry">
-                                        @Html.HiddenFor(modelItem => item.OrgIDView, new { @id = "OrgIDDisplay_" + count })
-                                        @Html.HiddenFor(modelItem => item.SiteIDView, new { @id = "SiteIDDisplay_" + count })
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.OrgNameView, new { @id = "custContainer", data_city = "23521" })
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.SiteStreetAddressView)
-                                        </td>
-                                    </tr>
-                            }
+                            var count = 0;
+                            foreach (var item in Model.OrgSiteList)
+                            {
+                                count++;
+                                <tr id="OrgSiteEntry">
+                                    @Html.HiddenFor(modelItem => item.OrgIDView, new { @id = "OrgIDDisplay_" + count })
+                                    @Html.HiddenFor(modelItem => item.SiteIDView, new { @id = "SiteIDDisplay_" + count })
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OrgNameView, new { @id = "custContainer", data_city = "23521" })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.SiteStreetAddressView)
+                                    </td>
+                                </tr>
+                    }
                                 }
                             </tbody>
                         </table>
