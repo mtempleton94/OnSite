@@ -169,14 +169,18 @@ namespace OnSite.Pages
             // create new user if does not already exist (check passport/licence number)
             if(!(_context.Visitor.Any(visitor => visitor.IdentificationNumber == Visitor.IdentificationNumber)))
             {
+                // create new visitor record
                 _context.Visitor.Add(Visitor);
                 await _context.SaveChangesAsync();
+
+                // use new visitor id in visit record
+                Visit.VisitorId = Visitor.VisitorId;
             }
 
             // [TODO] warn staff if using same identification number but with a different name
 
-            //_context.Visit.Add(Visit);
-            //await _context.SaveChangesAsync();
+            _context.Visit.Add(Visit);
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./SignIn");
         }
