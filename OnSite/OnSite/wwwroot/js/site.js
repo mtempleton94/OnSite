@@ -126,6 +126,9 @@ function existingVisitorSelected(selectedRow) {
     // show the row as selected
     selectedRow.addClass('selected').siblings().removeClass('selected');
 
+    // store the selected visitor id to use when creating visit record
+    $("#visitor-id-select select").val(selectedVisitor);
+
     // populate the fields when an item from the list is selected
     // get selected first name
     var firstNameDisplay_ID = '#FirstNameDisplay_' + row_index;
