@@ -58,32 +58,31 @@ function visitorIdentificationUpdated() {
     var lastNameSearch = $('#lastNameInput').val();
     var identificationNumberSearch = $('#identificationNumberInput').val();
 
+    // get visitor data to be displayed in list
     $.get("/SignIn?handler=Visitors&FirstName=" + firstNameSearch +
         "&LastName=" + lastNameSearch +
         "&IdentificationNumber=" + identificationNumberSearch, function (response) {
 
-            var visitorTableBody = $("#visitor-table-body");
+        // select the table to populate and clear it
+        var visitorTableBody = $("#visitor-table-body");
         visitorTableBody.empty();
 
             var obj = JSON.parse(response);
             var count = 0;
             jQuery(obj).each(function (i, item) {
 
-                count++;
-
                 var organisationName = null;
                 $.get("/SignIn?handler=OrganisationName&OrganisationId=" + item.OrganisationId, function (response) {
                     organisationName = response;    
-                
 
-                $(visitorTableBody).append('<tr data-visitorId = ' + item.VisitorId+'>' +
-                    '<td id="FirstNameDisplay_'+count+'">' + item.FirstName + '</td>' +
-                    '<td id="LastNameDisplay_' + count + '">' + item.LastName + '</td>' +
-                    '<td id="OrganisationDisplay_' + count + '">' + organisationName + '</td>' +
-                    '<td id="IdentificationNumberDisplay_' + count + '">' + item.IdentificationNumber + '</td>' +
+                    count++;
+
+                    $(visitorTableBody).append('<tr data-visitorId = ' + item.VisitorId+'>' +
+                            '<td id="FirstNameDisplay_'+count+'">' + item.FirstName + '</td>' +
+                            '<td id="LastNameDisplay_' + count + '">' + item.LastName + '</td>' +
+                            '<td id="OrganisationDisplay_' + count + '">' + organisationName + '</td>' +
+                            '<td id="IdentificationNumberDisplay_' + count + '">' + item.IdentificationNumber + '</td>' +
                         '</tr>');
-
-
 
                     // bind function to row selection
                     $('#visitor-table tr').click(function () {
@@ -112,17 +111,8 @@ function visitorIdentificationUpdated() {
                         var identificationNumberDisplay_ID = '#IdentificationNumberDisplay_' + row_index;
                         $('#identificationNumberInput').val($(identificationNumberDisplay_ID).html());
 
-               /* lastNameInput
-                visitorOrganisationInput
-                identificationNumberInput*/
-
-
-
+                    });
                 });
-            });
-
-            
-
             });
         });
 }

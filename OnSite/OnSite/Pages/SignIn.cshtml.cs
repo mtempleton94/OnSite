@@ -139,6 +139,8 @@ namespace OnSite.Pages
         //=====================================================================
         [BindProperty]
         public Visit Visit { get; set; }
+
+        [BindProperty]
         public Visitor Visitor { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
@@ -149,9 +151,17 @@ namespace OnSite.Pages
                 return Page();
             }
 
-            _context.Visit.Add(Visit);
-            //_context.Visitor.Add(Visitor);
-            await _context.SaveChangesAsync();
+            // create new user if does not already exist (check passport/licence number)
+            if(!(_context.Visitor.Any(visitor => visitor.IdentificationNumber == Visitor.IdentificationNumber)))
+            {
+                _context.Visitor.Add(Visitor);
+                await _context.SaveChangesAsync();
+            }
+
+            // [TODO] warn staff if using same identification number but with a different name
+
+            //_context.Visit.Add(Visit);
+            //await _context.SaveChangesAsync();
 
             return RedirectToPage("./SignIn");
         }
