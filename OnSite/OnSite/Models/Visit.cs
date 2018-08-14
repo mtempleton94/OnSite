@@ -9,7 +9,7 @@ namespace OnSite.Models
         public int VisitId { get; set; }
         public string Description { get; set; }
         [Display(Name="Sign In Time")]
-        public DateTime SignInTime { get; set; }
+        public DateTime? SignInTime { get; set; }
         [Display(Name = "Sign Out Time")]
         public DateTime? SignOutTime { get; set; }
         [Display(Name = "Vehicle Registration")]

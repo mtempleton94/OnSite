@@ -80,7 +80,7 @@ create table [dbo].[Visit]
 (
 	[VisitID]		INT				NOT NULL	IDENTITY (1, 1),
 	[Description]	VARCHAR(50)		NULL,
-	[SignInTime]    DATETIME2 (7)   NOT NULL,
+	[SignInTime]    DATETIME2 (7)   NULL,
 	[SignOutTime]	DATETIME2 (7)   NULL,
 	[VehicleID]		VARCHAR(10)		NULL,
 	[VisitorID]		INT				NOT NULL,
