@@ -24,6 +24,7 @@ namespace OnSite.Models
         public int? StaffEscortId { get; set; }
         [Display(Name = "Unescorted Approved By")]
         public int? UnescortedApprovedById { get; set; }
+        [Required]
         [Display(Name="Site")]
         public int SiteId { get; set; }
         [Display(Name="Areas Approved to Access")]
