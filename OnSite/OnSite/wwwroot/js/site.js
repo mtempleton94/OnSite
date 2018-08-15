@@ -140,16 +140,127 @@ function existingVisitorSelected(selectedRow) {
 
     // get the name of the organisation based on its id
     var organisationDisplay_ID = '#OrganisationDisplay_' + row_index;
-    $.get("/SignIn?handler=OrganisationId&OrganisationName=" + $(organisationDisplay_ID).html(), function (result) {
-        organisationId = result;
-        $('#visitorOrganisationInput').val(organisationId);
-    });
+
+    $("#visitor-org-select").val($(organisationDisplay_ID).html());
+    $("#visitor-org-combo").val($(organisationDisplay_ID).html());
 
     // get selected identification number
     var identificationNumberDisplay_ID = '#IdentificationNumberDisplay_' + row_index;
     $('#identificationNumberInput').val($(identificationNumberDisplay_ID).html());
 
 }
+
+
+//================================================================
+// Handling for custom combo box
+//================================================================
+$(function () {
+    $.widget("combobox.combobox", {
+        _create: function () {
+            this.wrapper = $("<span>")
+                .addClass("custom-combobox")
+                .insertAfter(this.element);
+
+            this.element.hide();
+            this._autoComplete();
+            this._dropDownButton();
+        },
+
+        _autoComplete: function () {
+            var selected = this.element.children(":selected");
+            var value = selected.val() ? selected.text() : "";
+
+            // create input field to display value
+            this.input = $("<input>")
+                .appendTo(this.wrapper)
+                .val(value)
+                .attr("title", "")
+                .attr("id", "visitor-org-combo")
+                .addClass("ui-widget-content")
+                .autocomplete({
+                    delay: 0,
+                    minLength: 0,
+                    source: $.proxy(this, "_source")
+                })
+                .keyup(function (e) {
+                    //set value of hidden field used by model
+                    $("#visitor-org-select").val(this.value);
+                })
+
+            // select item in the original combo box
+            this._on(this.input, {
+                autocompleteselect: function (event, ui) {
+                    ui.item.option.selected = true;
+
+
+                    $("#visitor-org-select").val($("#visitor-organisation option:selected").text());
+
+                    this._trigger("select", event, {
+                        item: ui.item.option
+
+                    });
+                },
+            });
+        },
+
+        _dropDownButton: function () {
+            var input = this.input;
+            var listOpen = false;
+            $("<a>")
+                .appendTo(this.wrapper)
+                .button({
+                    icons: {
+                        primary: "icon.jpg"
+                    },
+                    text: false
+                })
+                .addClass("combobox-toggle")
+
+                // check if list is open
+                .on("mousedown", function () {
+                    listOpen = input.autocomplete("widget").is(":visible");
+                })
+
+                // button clicked
+                .on("click", function () {
+
+                    // close the list if it is open
+                    if (listOpen) {
+                        return;
+                    }
+
+                    // empty search string - show all results
+                    input.autocomplete("search", "");
+                });
+        },
+
+        // autocomplete and display list based on entered value
+        _source: function (request, response) {
+
+
+            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+            response(this.element.children("option").map(function () {
+                var text = $(this).text();
+                if (this.value && (!request.term || matcher.test(text)))
+                    return {
+                        label: text,
+                        value: text,
+                        option: this
+                    };
+            }));
+        },
+
+        _destroy: function () {
+            this.wrapper.remove();
+            this.element.show();
+        }
+    });
+
+    $(".combobox").combobox();
+    $("#toggle").on("click", function () {
+        $(".combobox").toggle();
+    });
+});
 
 
 

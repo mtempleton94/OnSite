@@ -29,8 +29,12 @@
                         <span asp-validation-for="Visitor.LastName" class="text-danger"></span>
                     </div>
                     <div class="col-sm-3">
-                        <label asp-for="Visitor.OrganisationId" class="visitor-personal-label"></label>
-                        <select id="visitorOrganisationInput" class="visitor-data-entry" asp-for="Visitor.OrganisationId" asp-items="ViewBag.OrganisationId"></select>
+                        <label asp-for="Organisation.Name" class="visitor-personal-label"></label>
+                        <input type="text" asp-for="Organisation.Name" id="visitor-org-select" style="display: none;">
+                        <select class="combobox" id="visitor-organisation" asp-items="ViewBag.OrganisationId" onchange="visitorOrganisationUpdated()">
+                            <option value="">Select one...</option>
+                        </select>
+                        <select asp-for="Visitor.OrganisationId" asp-items="ViewBag.OrganisationId" style="display: none;"></select>
                     </div>
                     <div class="col-sm-3">
                         <label asp-for="Visitor.IdentificationNumber" class="visitor-personal-label"></label>
@@ -38,64 +42,64 @@
                         <span asp-validation-for="Visitor.IdentificationNumber" class="text-danger"></span>
                     </div>
                 </div>
-            </div><br>
+    </div><br>
 
-            <!-- Display list of existing visitors corresponding to identification entries -->
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table id="visitor-table" class="table">
-                            <thead>
-                                <tr>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Organisation</th>
-                                    <th>Passport/Licence Number</th>
-                                </tr>
-                            </thead>
-                            <tbody id="visitor-table-body"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Hidden field to store selected user -->
-            <div class="form-group" id="visitor-id-select" style="display: none;">
-                <select asp-for="Visit.VisitorId" class="form-control" asp-items="ViewBag.VisitorId"></select>
-            </div>
-
-            <!-- Fields to enter visit description and vehicle registration -->
-            <div class="container text-center">
-                <br>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <label asp-for="Visit.VehicleId" class="visitor-personal-label"></label>
-                        <input asp-for="Visit.VehicleId" class="visitor-data-entry" />
-                        <span asp-validation-for="Visit.VehicleId" class="text-danger"></span>
-                    </div>
-                    <div class="col-sm-9">
-                        <label asp-for="Visit.Description" class="visitor-personal-label"></label>
-                        <input asp-for="Visit.Description" class="visitor-data-entry" />
-                        <span asp-validation-for="Visit.Description" class="text-danger"></span>
+    <!-- Display list of existing visitors corresponding to identification entries -->
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="visitor-table" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Organisation</th>
+                                            <th>Passport/Licence Number</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="visitor-table-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
 
-                </div>
-            </div><br>
+                    <!-- Hidden field to store selected user -->
+                    <div class="form-group" id="visitor-id-select" style="display: none;">
+                        <select asp-for="Visit.VisitorId" class="form-control" asp-items="ViewBag.VisitorId"></select>
+                    </div>
+
+                    <!-- Fields to enter visit description and vehicle registration -->
+                    <div class="container text-center">
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label asp-for="Visit.VehicleId" class="visitor-personal-label"></label>
+                                <input asp-for="Visit.VehicleId" class="visitor-data-entry" />
+                                <span asp-validation-for="Visit.VehicleId" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-9">
+                                <label asp-for="Visit.Description" class="visitor-personal-label"></label>
+                                <input asp-for="Visit.Description" class="visitor-data-entry" />
+                                <span asp-validation-for="Visit.Description" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                    </div><br>
 
 
-            <!-- Display a list  of all sites for all organisations -->
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-sm-12">
+                    <!-- Display a list  of all sites for all organisations -->
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-sm-12">
 
-                        <table id="org-site-table" class="table">
-                            <thead>
-                                <tr>
-                                    <th> Select Site </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
+                                <table id="org-site-table" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th> Select Site </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
                             var count = 0;
                             foreach (var item in Model.OrgSiteList)
                             {
@@ -110,51 +114,52 @@
                                         @Html.DisplayFor(modelItem => item.SiteStreetAddressView)
                                     </td>
                                 </tr>
-                    }
-                                }
-                            </tbody>
-                        </table>
+            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Hidden field to store selected site -->
-            <div class="form-group" id="site-id-select" style="display: none;">
-                <select asp-for="Visit.SiteId" class="form-control" asp-items="ViewBag.SiteId"></select>
-            </div>
-
-            <!-- Display available areas for the selected site -->
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table id="area-table" class="table">
-                            <thead>
-                                <tr>
-                                    <th>Floor</th>
-                                    <th>Description</th>
-                                    <th>Classification</th>
-                                </tr>
-                            </thead>
-                            <tbody id="area-table-body"></tbody>
-                        </table>
+                    <!-- Hidden field to store selected site -->
+                    <div class="form-group" id="site-id-select" style="display: none;">
+                        <select asp-for="Visit.SiteId" class="form-control" asp-items="ViewBag.SiteId"></select>
                     </div>
-                </div>
-            </div>
 
-            <!-- Hidden field to store selected area -->
-            <div class="form-group" id="area-id-select" style="display: none;">
-                <select asp-for="Visit.AreaId" class="form-control" asp-items="ViewBag.AreaId"></select>
-            </div>
+                    <!-- Display available areas for the selected site -->
+                    <div class="container text-center">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="area-table" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Floor</th>
+                                            <th>Description</th>
+                                            <th>Classification</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="area-table-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hidden field to store selected area -->
+                    <div class="form-group" id="area-id-select" style="display: none;">
+                        <select asp-for="Visit.AreaId" class="form-control" asp-items="ViewBag.AreaId"></select>
+                    </div>
 
 
-            <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-default" />
-            </div>
-        </form>
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn btn-default" />
+                    </div>
+</form>
 
     </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 }

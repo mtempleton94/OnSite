@@ -158,6 +158,9 @@ namespace OnSite.Pages
         [BindProperty]
         public Visitor Visitor { get; set; }
 
+        [BindProperty]
+        public Organisation Organisation { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
 
@@ -166,8 +169,25 @@ namespace OnSite.Pages
                 return Page();
             }
 
+            // create new organisation if does not already exist
+            if (!(_context.Organisation.Any(organisation => organisation.Name == Organisation.Name)))
+            {
+                _context.Organisation.Add(Organisation);
+                await _context.SaveChangesAsync();
+                Visitor.OrganisationId = Organisation.OrganisationId;
+            }
+            else
+            {
+                // based on the organisation name get its ID
+                int orgId =
+                    (from organisation in _context.Organisation
+                    where organisation.Name == Organisation.Name
+                    select organisation.OrganisationId).SingleOrDefault();
+                Visitor.OrganisationId = orgId;
+            }
+
             // create new user if does not already exist (check passport/licence number)
-            if(!(_context.Visitor.Any(visitor => visitor.IdentificationNumber == Visitor.IdentificationNumber)))
+            if (!(_context.Visitor.Any(visitor => visitor.IdentificationNumber == Visitor.IdentificationNumber)))
             {
                 // create new visitor record
                 _context.Visitor.Add(Visitor);
