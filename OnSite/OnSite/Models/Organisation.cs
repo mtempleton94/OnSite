@@ -13,6 +13,8 @@ namespace OnSite.Models
         }
 
         public int OrganisationId { get; set; }
+        [Required]
+        [Display(Name = "Organisation")]
         public string Name { get; set; }
 
         public ICollection<Site> Site { get; set; }

@@ -150,6 +150,22 @@ function existingVisitorSelected(selectedRow) {
 
 }
 
+//================================================================
+// Submit button pressed
+//================================================================
+document.getElementById('sign-in-form').onsubmit = function () {
+
+    // verify that an organisation name has been correctly entered/selected
+    orgValid = /^[A-Za-z0-9 ,.'-]+$/.test($("#visitor-org-select").val());
+    if (!orgValid) {
+        $('#sign-in-org-error').show();
+        return false;
+    } else {
+        return true;
+    }
+
+    // [TODO] Add validation to ensure a site is selected
+};
 
 //================================================================
 // Handling for custom combo box
@@ -185,6 +201,7 @@ $(function () {
                 .keyup(function (e) {
                     //set value of hidden field used by model
                     $("#visitor-org-select").val(this.value);
+                    $('#sign-in-org-error').hide();
                 })
 
             // select item in the original combo box
@@ -192,9 +209,8 @@ $(function () {
                 autocompleteselect: function (event, ui) {
                     ui.item.option.selected = true;
 
-
                     $("#visitor-org-select").val($("#visitor-organisation option:selected").text());
-
+                    $('#sign-in-org-error').hide();
                     this._trigger("select", event, {
                         item: ui.item.option
 

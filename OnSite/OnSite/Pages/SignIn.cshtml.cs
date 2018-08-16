@@ -164,8 +164,10 @@ namespace OnSite.Pages
         public async Task<IActionResult> OnPostAsync()
         {
 
-            if (!ModelState.IsValid)
+            // check model is valid and check that an organisation and a site are selected
+            if (!ModelState.IsValid || Organisation.Name == "test" || Visit.SiteId == 0)
             {
+                await OnGetAsync();
                 return Page();
             }
 
