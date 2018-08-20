@@ -52,6 +52,10 @@ td {
     display: block;
 }
 
+input {
+    color: black;
+}
+
 .visitor-personal-label {
     text-align: left;
 }
@@ -200,4 +204,34 @@ span {
 #approved-visits, #unapproved-visits {
     display: none;
     padding: 6px 12px;
+}
+
+/* manage visits sitebar */
+.sidenav {
+
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 102px;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+
+}
+
+    .sidenav a {
+        padding: 6px 6px 6px 32px;
+        text-decoration: none;
+        color: white;
+        display: block;
+    }
+
+        .sidenav a:hover {
+            color: #3598DC;
+        }
+
+.main {
+    margin-left: 200px; /* Same as the width of the sidenav */
+    height: 100%;
 }

@@ -11,8 +11,84 @@
 </div>
 
 <!-- unapproved contents -->
-<div id="unapproved-visits" >
-    <h2>Unapproved</h2>
+<div id="unapproved-visits">
+
+
+    <!-- display a list of all the unapproved visitor names -->
+    <!-- <div class="unapproved-sidebar"> -->
+    <div class="sidenav">
+        @foreach (var unapprovedVisit in Model.UnapprovedVisits)
+        {
+            <a>@Model.GetVisitorName(unapprovedVisit.VisitId)</a>
+        }
+    </div>
+
+    <!-- display fields for editing/approving the currently selected visit -->
+    <div class="row">
+    <div class="main">
+        <div class="col-md-4">
+            <form method="post" id="sign-in-form" onsubmit="return isValidForm()">
+
+                <!-- Fields for entering personal information -->
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="container text-center">
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label asp-for="Visitor.FirstName" class="visitor-personal-label"></label>
+                            <input id="firstNameInput" oninput="visitorIdentificationUpdated()" class="visitor-data-entry" asp-for="Visitor.FirstName" />
+                            <span asp-validation-for="Visitor.FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-3">
+                            <label asp-for="Visitor.LastName" class="visitor-personal-label"></label>
+                            <input id="lastNameInput" oninput="visitorIdentificationUpdated()" class="visitor-data-entry" asp-for="Visitor.LastName" />
+                            <span asp-validation-for="Visitor.LastName" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-3">
+                            <label asp-for="Organisation.Name" class="visitor-personal-label"></label>
+                            <input type="text" asp-for="Organisation.Name" id="visitor-org-select" style="display: none;">
+                            <select class="combobox" id="visitor-organisation" asp-items="ViewBag.OrganisationId" onchange="visitorOrganisationUpdated()">
+                                <option value="">Select one...</option>
+                            </select>
+                            <p id="sign-in-org-error" style="display: none; color: #b94a48">Invalid Entry.</p>
+                            <select asp-for="Visitor.OrganisationId" asp-items="ViewBag.OrganisationId" style="display: none;"></select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label asp-for="Visitor.IdentificationNumber" class="visitor-personal-label"></label>
+                            <input id=identificationNumberInput oninput="visitorIdentificationUpdated()" class="visitor-data-entry" asp-for="Visitor.IdentificationNumber" />
+                            <span asp-validation-for="Visitor.IdentificationNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div><br>
+
+                <!-- Fields to enter visit description and vehicle registration -->
+                <div class="container text-center">
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <label asp-for="Visit.VehicleId" class="visitor-personal-label"></label>
+                            <input asp-for="Visit.VehicleId" class="visitor-data-entry" />
+                            <span asp-validation-for="Visit.VehicleId" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-9">
+                            <label asp-for="Visit.Description" class="visitor-personal-label"></label>
+                            <input asp-for="Visit.Description" class="visitor-data-entry" />
+                            <span asp-validation-for="Visit.Description" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                </div><br>
+
+                <div class="form-group">
+                    <input type="submit" value="Approve" class="btn btn-default" id="sign-in-submit" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+    </div>
 </div>
 
 <!-- approved contents -->
