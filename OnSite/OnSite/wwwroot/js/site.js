@@ -170,7 +170,7 @@ function existingVisitorSelected(selectedRow) {
 //================================================================
 // Submit button pressed
 //================================================================
-document.getElementById('sign-in-form').onsubmit = function () {
+function signInSubmitted() {
 
     // verify that an organisation name has been correctly entered/selected
     orgValid = /^[A-Za-z0-9 ,.'-]+$/.test($("#visitor-org-select").val());
