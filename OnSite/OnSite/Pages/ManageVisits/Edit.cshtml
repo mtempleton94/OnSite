@@ -70,9 +70,10 @@
                 <span asp-validation-for="Visit.AreaId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Visit.ApprovalStatus" class="control-label"></label>
                 <div class="checkbox">
                     <label>
-                        <input asp-for="Visit.ApprovalStatus" /> @Html.DisplayNameFor(model => model.ApprovalStatus)
+                        <input asp-for="Visit.ApprovalStatus" />
                     </label>
                 </div>
             </div>
