@@ -1,0 +1,34 @@
+﻿@page
+@model OnSite.Pages.VisitManagerModel
+@{
+    ViewData["Title"] = "Visit Manager";
+}
+
+<!-- tabs to display approved or unapproved visits -->
+<div class="tab">
+    <button class="tab-button" onclick="openVisitTab(event, 'unapproved-visits')">Unapproved</button>
+    <button class="tab-button" onclick="openVisitTab(event, 'approved-visits')">Approved</button>
+</div>
+
+<!-- unapproved contents -->
+<div id="unapproved-visits" >
+    <h2>Unapproved</h2>
+</div>
+
+<!-- approved contents -->
+<div id="approved-visits">
+    <h2>Approved</h2>
+
+    <div class="row">
+    <!-- create card using parial view for each visit -->
+    @foreach (var visitor in Model.OnSiteVisitors)
+    {
+        Html.RenderPartial(
+            "_CompleteSignInPartial",
+            new ViewDataDictionary(this.ViewData) {
+                { "VisitId", visitor.VisitId }
+            }
+        );
+    }
+    </div>
+</div>

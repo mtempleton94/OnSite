@@ -278,5 +278,25 @@ $(function () {
     });
 });
 
+//================================================================
+// Tabbed content on the manage visits page
+//================================================================
+function openVisitTab(evt, tabId) {
+
+    // hide all tab content
+    document.getElementById("unapproved-visits").style.display = "none";
+    document.getElementById("approved-visits").style.display = "none";
+
+    // set selected tab display
+    var tabButtons = document.getElementsByClassName("tab-button");
+    for (var i = 0; i < tabButtons.length; i++) {
+        tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+    }
+
+    // display the requested tab content
+    document.getElementById(tabId).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
 
 

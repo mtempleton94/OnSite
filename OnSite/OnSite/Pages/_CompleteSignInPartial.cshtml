@@ -1,0 +1,19 @@
+﻿@model OnSite.Pages.VisitManagerModel
+
+<div class="visitor-card">
+    
+    <!-- card title -->
+   
+        <h2>@Model.GetVisitorName(Convert.ToInt32(ViewData.Eval("VisitId")))</h2>
+    
+    <!-- card contents -->
+    <div class="visitor-card-body">
+        Placeholder Text.
+        <br />
+        More Placeholder Text.
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

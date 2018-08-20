@@ -1,13 +1,16 @@
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background: #404040;
 }
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 0;
+    padding-right: 0;
+    color: white;
+    width: 100%;
 }
 
 /* Carousel */
@@ -135,4 +138,66 @@ span {
     border: 1px solid #003eff;
     background: #007fff;
     color: #ffffff;
+}
+
+/* cards displaying currently signed in visitors */
+/* main card display */
+.visitor-card {
+    width: 530px;
+    height: 300px;
+    margin: 1rem;
+    float: left;
+    position: relative;
+    background: white;
+    color: black;
+}
+
+    /* cursor hovered over card */
+    .visitor-card:hover {
+        box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2);
+    }
+
+    /* card title */
+    .visitor-card h2 {
+        margin: 0;
+        padding: 0;
+        top: 0;
+        color: #fff;
+        background: #3598DC;
+}
+
+/* tabs for changing between approved and unapproved visits */
+/* tab panel */
+.tab {
+    overflow: hidden;
+    background-color: #3598DC;
+    width: 100%;
+}
+
+    /* tab buttons */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+        /* button hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* button selected */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+/* tab contents */
+#approved-visits, #unapproved-visits {
+    display: none;
+    padding: 6px 12px;
 }
