@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{option?}"
 @model OnSite.Pages.VisitManagerModel
 @{
     ViewData["Title"] = "Visit Manager";
@@ -6,8 +6,8 @@
 
 <!-- tabs to display approved or unapproved visits -->
 <div class="tab">
-    <button class="tab-button" onclick="openVisitTab(event, 'unapproved-visits')">Unapproved</button>
-    <button class="tab-button" onclick="openVisitTab(event, 'approved-visits')">Approved</button>
+    <button class="tab-button" id="unapproved-visits-tab" onclick="openVisitTab('unapproved-visits')">Unapproved</button>
+    <button class="tab-button" id="approved-visits-tab" onclick="openVisitTab('approved-visits')">Approved</button>
 </div>
 
 <!-- unapproved contents -->

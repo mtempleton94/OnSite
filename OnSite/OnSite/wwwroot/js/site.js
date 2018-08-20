@@ -1,4 +1,21 @@
 ﻿//================================================================
+// Page Load - Handling for URLs
+//================================================================
+$(document).ready(function () {
+    var pathname = window.location.pathname;
+    var urlSplit = pathname.split('/');
+
+    // tab selection for manage visit page
+    if (urlSplit[1] == "VisitManager") {
+        if (urlSplit[2] == "Unapproved") {
+            openVisitTab("unapproved-visits");
+        } else if (urlSplit[2] == "Approved") {
+            openVisitTab("approved-visits");
+        }
+    }
+});
+
+//================================================================
 // Item selected from list of sites
 //================================================================
 $("#org-site-table tr").click(function () {
@@ -281,13 +298,13 @@ $(function () {
 //================================================================
 // Tabbed content on the manage visits page
 //================================================================
-function openVisitTab(evt, tabId) {
+function openVisitTab(tabId) {
 
     // hide all tab content
     document.getElementById("unapproved-visits").style.display = "none";
     document.getElementById("approved-visits").style.display = "none";
 
-    // set selected tab display
+    // deselect all tabs
     var tabButtons = document.getElementsByClassName("tab-button");
     for (var i = 0; i < tabButtons.length; i++) {
         tabButtons[i].className = tabButtons[i].className.replace(" active", "");
@@ -295,7 +312,16 @@ function openVisitTab(evt, tabId) {
 
     // display the requested tab content
     document.getElementById(tabId).style.display = "block";
-    evt.currentTarget.className += " active";
+    document.getElementById(tabId + "-tab").className += " active";
+
+    // update the url to reflect the currently selected tab
+    if (tabId == "unapproved-visits") {
+        var tabURL = "Unapproved";
+    } else {
+        var tabURL = "Approved";
+    }
+    var newUrl = "/VisitManager/" + tabURL;
+    window.history.pushState("data", "Title", newUrl);
 }
 
 
