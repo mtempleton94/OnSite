@@ -53,12 +53,12 @@
                                 <img src="../../images/down-arrow.png" class="combobox-arrow" onclick="showComboboxDropdown()">
                                 <div id="combobox-options" class="combobox-options-container">
                                     @{
-                    var orgCount = 0;
-                    foreach (var org in Model.OrganisationList)
-                    {
-                        <div class="combobox-option" onclick="selectComboItem(@orgCount)">@org.Name</div>
-    orgCount++;
-}
+                                        var orgCount = 0;
+                                        foreach (var org in Model.OrganisationList)
+                                        {
+                                            <div class="combobox-option" onclick="selectComboItem(@orgCount)">@org.Name</div>
+                                            orgCount++;
+                                        }
                                     }
                                 </div>
                             </div>
