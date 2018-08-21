@@ -299,3 +299,38 @@ function selectComboItem(itemNum) {
         }
     }
 }
+
+//================================================================
+// Load unapproved visit data
+//================================================================
+function loadUnapprovedVisitData(visitId) {
+
+    // display visit data and display
+    $.get("/VisitManager?handler=VisitData&visitId=" + visitId, function (response) {
+        var obj = JSON.parse(response);
+        jQuery(obj).each(function (i, item) {
+            $("#visit-vehicleid-entry").val(item.VehicleId);
+            $("#visit-description-entry").val(item.Description);
+        });
+    });
+
+    // get visitor data and display
+    $.get("/VisitManager/Unapproved?handler=VisitorData&visitId=" + visitId, function (response) {
+        var obj = JSON.parse(response);
+        jQuery(obj).each(function (i, item) {
+
+            // populate fields with visitor data
+            $("#firstNameInput").val(item.FirstName);
+            $("#lastNameInput").val(item.LastName);
+            $("#identificationNumberInput").val(item.IdentificationNumber);
+
+            // get the organisation name based on its id
+            $.get("/SignIn?handler=OrganisationName&OrganisationId=" + item.OrganisationId, function (result) {
+                organisationName = result;
+                $('#visitor-org-select').val(organisationName);
+                inputUpdated();
+            });
+        });
+    });
+
+}

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnSite.Models;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace OnSite.Pages
 {
@@ -58,16 +59,48 @@ namespace OnSite.Pages
         //=====================================================================
         // Get Visitor Name based on Visit Id
         //=====================================================================
-        public string GetVisitorName(int VisitId)
+        public Visitor GetVisitor(int VisitId)
         {
-            string visitorName =
-                (from visitor in _context.Visitor
-                 join visit in _context.Visit on visitor.VisitorId equals visit.VisitorId into Visit_Visitor
-                 from joinVisitor in Visit_Visitor.DefaultIfEmpty()
-                 where joinVisitor.VisitId == VisitId
-                 select visitor.FirstName).SingleOrDefault();
-            return visitorName;
+            IQueryable<Visitor> visitorQuery =
+                 (from visitor in _context.Visitor
+                  join visit in _context.Visit on visitor.VisitorId equals visit.VisitorId into Visit_Visitor
+                  from joinVisitor in Visit_Visitor.DefaultIfEmpty()
+                  where joinVisitor.VisitId == VisitId
+                  select visitor);
+            return visitorQuery.ToArray().First();
         }
+
+        //=====================================================================
+        // Get Visit Data as a JSON Object
+        //=====================================================================
+        public JsonResult OnGetVisitData(int visitId)
+        {
+            IQueryable<Visit> visitData =
+                from visit in _context.Visit
+                where (visit.VisitId == visitId)
+                select visit;
+
+            string jsonData = JsonConvert.SerializeObject(visitData);
+            return new JsonResult(jsonData);
+        }
+
+        //=====================================================================
+        // Get Visitor Data as a JSON Object
+        //=====================================================================
+        public JsonResult OnGetVisitorData(int visitId)
+        {
+            IQueryable<Visitor> visitorData =
+                 (from visitor in _context.Visitor
+                  join visit in _context.Visit on visitor.VisitorId equals visit.VisitorId into Visit_Visitor
+                  from joinVisitor in Visit_Visitor.DefaultIfEmpty()
+                  where joinVisitor.VisitId == visitId
+                  select visitor);
+
+            string jsonData = JsonConvert.SerializeObject(visitorData);
+            return new JsonResult(jsonData);
+        }
+
+
     }
 }
 
