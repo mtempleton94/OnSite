@@ -64,86 +64,6 @@ input {
     width: 100%;
 }
 
-/* items in drop down menu */
-.ui-menu {
-    position: absolute;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: block;
-    outline: 0;
-    background: white;
-    border: 1px solid #bec1c6;
-}
-
-/* focus on item in drop down menu */
-.ui-menu .ui-state-focus,
-.ui-menu .ui-state-active {
-    margin: -1px;
-}
-
-/* drop down button */
-.ui-button-icon-only {
-    width: 2em;
-}
-
-/* expand dropdown menu button */
-.ui-button {
-    border: 1px solid #c5c5c5;
-    float: right;
-}
-
-/* combo box button - hover */
-.ui-button:hover,
-.ui-button:focus {
-    border: 1px solid #cccccc;
-    background: #bec1c6;
-}
-
-/* expand drop down button */
-span {
-    position: relative;
-    display: inline-block;
-}
-
- .combobox-toggle {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-}
-
-/* text entry / drop down backgrounds */
-.custom-combobox {
-    color: #333333;
-    background: white;
-}
-
-.custom-combobox {
-    color: #333333;
-    width: 100%;
-}
-
-.custom-combobox input {
-    float: left;
-    background: white;
-    height: 2em;
-    width: calc(100% - 2em);
-}
-
-.custom-combobox a {
-    display: block;
-    width: auto;
-    min-width: 2em;
-    right: 0;
-}
-
-/* elements in the drop down list */
-.ui-state-active {
-    border: 1px solid #003eff;
-    background: #007fff;
-    color: #ffffff;
-}
-
 /* cards displaying currently signed in visitors */
 /* main card display */
 .visitor-card {
@@ -235,3 +155,53 @@ span {
     margin-left: 200px; /* Same as the width of the sidenav */
     height: 100%;
 }
+
+/* combo box */
+.select-box {
+    height: 26px;
+    width: 100%;
+    position: relative;
+    z-index: 10000;
+}
+
+.combobox-arrow {
+    position: absolute;
+    right: 0;
+    background: white;
+    height: 28px;
+    width: 28px;
+}
+
+.combobox-input {
+    height: 27px;
+    width: 140px;
+    position: absolute;
+    left: 0;
+    width: calc(100% - 24px);
+}
+
+.combobox-options-container {
+    position: absolute;
+    border: 1px solid #7f9db9;
+    height: 100px;
+    background-color: #FFF;
+    left: -1px;
+    top: 25px;
+    visibility: hidden;
+    z-index: 1000;
+    width: calc(100% - 24px);
+    display: none;
+    visibility: visible;
+    overflow: auto;
+}
+
+.combobox-option {
+    cursor: default;
+    margin: 1px;
+    overflow: hidden;
+    color: black;
+}
+
+    .combobox-option:hover {
+        background: #c6c6c6;
+    }

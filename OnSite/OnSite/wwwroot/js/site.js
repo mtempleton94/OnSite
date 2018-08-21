@@ -158,13 +158,30 @@ function existingVisitorSelected(selectedRow) {
     // get the name of the organisation based on its id
     var organisationDisplay_ID = '#OrganisationDisplay_' + row_index;
 
-    $("#visitor-org-select").val($(organisationDisplay_ID).html());
-    $("#visitor-org-combo").val($(organisationDisplay_ID).html());
+    // organisation text input field
+    var textInput = $('.combobox-input')[0];
+
+    // value selected from visitor list
+    var selectedValue = $(organisationDisplay_ID).html()
+
+    // show correct item as selected
+    for (var i = 0; i < document.getElementsByClassName('combobox-option').length; i++) {
+
+        // get next item from list of options
+        var elem = $('.combobox-option')[i];
+        if (selectedValue == $(elem).html()) {
+            $(textInput).val($(elem).text());
+            elem.style.backgroundColor = '#555555';
+            elem.style.color = '#fff';
+        } else {
+            elem.style.backgroundColor = '';
+            elem.style.color = '#000';
+        }
+    }
 
     // get selected identification number
     var identificationNumberDisplay_ID = '#IdentificationNumberDisplay_' + row_index;
     $('#identificationNumberInput').val($(identificationNumberDisplay_ID).html());
-
 }
 
 //================================================================
@@ -183,117 +200,6 @@ function signInSubmitted() {
 
     // [TODO] Add validation to ensure a site is selected
 };
-
-//================================================================
-// Handling for custom combo box
-//================================================================
-$(function () {
-    $.widget("combobox.combobox", {
-        _create: function () {
-            this.wrapper = $("<span>")
-                .addClass("custom-combobox")
-                .insertAfter(this.element);
-
-            this.element.hide();
-            this._autoComplete();
-            this._dropDownButton();
-        },
-
-        _autoComplete: function () {
-            var selected = this.element.children(":selected");
-            var value = selected.val() ? selected.text() : "";
-
-            // create input field to display value
-            this.input = $("<input>")
-                .appendTo(this.wrapper)
-                .val(value)
-                .attr("title", "")
-                .attr("id", "visitor-org-combo")
-                .addClass("ui-widget-content")
-                .autocomplete({
-                    delay: 0,
-                    minLength: 0,
-                    source: $.proxy(this, "_source")
-                })
-                .keyup(function (e) {
-                    //set value of hidden field used by model
-                    $("#visitor-org-select").val(this.value);
-                    $('#sign-in-org-error').hide();
-                })
-
-            // select item in the original combo box
-            this._on(this.input, {
-                autocompleteselect: function (event, ui) {
-                    ui.item.option.selected = true;
-
-                    $("#visitor-org-select").val($("#visitor-organisation option:selected").text());
-                    $('#sign-in-org-error').hide();
-                    this._trigger("select", event, {
-                        item: ui.item.option
-
-                    });
-                },
-            });
-        },
-
-        _dropDownButton: function () {
-            var input = this.input;
-            var listOpen = false;
-            $("<a>")
-                .appendTo(this.wrapper)
-                .button({
-                    icons: {
-                        primary: "icon.jpg"
-                    },
-                    text: false
-                })
-                .addClass("combobox-toggle")
-
-                // check if list is open
-                .on("mousedown", function () {
-                    listOpen = input.autocomplete("widget").is(":visible");
-                })
-
-                // button clicked
-                .on("click", function () {
-
-                    // close the list if it is open
-                    if (listOpen) {
-                        return;
-                    }
-
-                    // empty search string - show all results
-                    input.autocomplete("search", "");
-                });
-        },
-
-        // autocomplete and display list based on entered value
-        _source: function (request, response) {
-
-
-            var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
-            response(this.element.children("option").map(function () {
-                var text = $(this).text();
-                if (this.value && (!request.term || matcher.test(text)))
-                    return {
-                        label: text,
-                        value: text,
-                        option: this
-                    };
-            }));
-        },
-
-        _destroy: function () {
-            this.wrapper.remove();
-            this.element.show();
-        }
-    });
-
-    $(".combobox").combobox();
-    $("#toggle").on("click", function () {
-        $(".combobox").toggle();
-    });
-});
 
 //================================================================
 // Tabbed content on the manage visits page
@@ -324,5 +230,72 @@ function openVisitTab(tabId) {
     window.history.pushState("data", "Title", newUrl);
 }
 
+//================================================================
+// Show combo box dropdown menu
+//================================================================
+function showComboboxDropdown() {
 
+    var optionDiv = document.getElementById('combobox-options');
+    if (optionDiv.style.display == 'block') {
+        optionDiv.style.display = 'none';
+    } else {
+        optionDiv.style.display = 'block';
+    }
+}
 
+//================================================================
+// Text entered in combo box input field
+//================================================================
+function inputUpdated() {
+
+    for (var i = 0; i < document.getElementsByClassName('combobox-option').length; i++) {
+
+        // get next item from list of options
+        var elem = $('.combobox-option')[i];
+
+        // get the text entered in input field
+        var textInput = $('.combobox-input')[0];
+
+        // check if the entered text matches an item in the list
+        if ($(textInput).val().toLowerCase() == $(elem).html().toLowerCase()) {
+            $(textInput).val($(elem).text());
+            elem.style.backgroundColor = '#555555';
+            elem.style.color = '#fff';
+        } else {
+            elem.style.backgroundColor = '';
+            elem.style.color = '#000';
+        }
+    }
+}
+
+//================================================================
+// Select item from combo box list
+//================================================================
+function selectComboItem(itemNum) {
+
+    // text entry box
+    var textInput = $('.combobox-input')[0];
+
+    // item selected from drop down menu
+    var selectedItem = $('.combobox-option')[itemNum];
+
+    // get text value of the selected item
+    $(textInput).val($(selectedItem).text());
+
+    // remove drop down menu from display
+    document.getElementById('combobox-options').style.display = 'none';
+
+    // set the display of each item in the drop down list
+    for (var i = 0; i < document.getElementsByClassName('combobox-option').length; i++) {
+        var elem = document.getElementsByClassName('combobox-option')[i];
+        // show selected item as selected
+        if (elem == selectedItem) {
+            elem.style.backgroundColor = '#555555';
+            elem.style.color = '#fff';
+            // show all other items as deselected
+        } else {
+            elem.style.backgroundColor = '';
+            elem.style.color = '#000';
+        }
+    }
+}

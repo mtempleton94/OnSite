@@ -31,10 +31,20 @@
                     </div>
                     <div class="col-sm-3">
                         <label asp-for="Organisation.Name" class="visitor-personal-label"></label>
-                        <input type="text" asp-for="Organisation.Name" id="visitor-org-select" style="display: none;">
-                        <select class="combobox" id="visitor-organisation" asp-items="ViewBag.OrganisationId" onchange="visitorOrganisationUpdated()">
-                            <option value="">Select one...</option>
-                        </select>
+                        <div class="select-box">
+                            <input asp-for="Organisation.Name"  id="visitor-org-select" class="combobox-input" type="text" oninput="inputUpdated()">
+                            <img src="./images/down-arrow.png" class="combobox-arrow" onclick="showComboboxDropdown()">
+                            <div id="combobox-options" class="combobox-options-container">
+                                @{
+                                var orgCount = 0;
+                                foreach (var org in Model.OrganisationList)
+                                    {
+                                        <div class="combobox-option" onclick="selectComboItem(@orgCount)">@org.Name</div>
+                                        orgCount++;
+                                    }
+                                }
+                            </div>
+                        </div>
                         <p id="sign-in-org-error" style="display: none; color: #b94a48">Invalid Entry.</p>
                         <select asp-for="Visitor.OrganisationId" asp-items="ViewBag.OrganisationId" style="display: none;"></select>
                     </div>
@@ -44,7 +54,7 @@
                         <span asp-validation-for="Visitor.IdentificationNumber" class="text-danger"></span>
                     </div>
                 </div>
-    </div><br>
+            </div><br>
 
     <!-- Display list of existing visitors corresponding to identification entries -->
                     <div class="container text-center">
@@ -163,5 +173,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 }
