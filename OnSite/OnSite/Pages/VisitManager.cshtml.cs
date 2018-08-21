@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnSite.Models;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace OnSite.Pages
 {
@@ -27,11 +29,12 @@ namespace OnSite.Pages
 
         public IList<Visit> OnSiteVisitors { get; set; }
         public IList<Visit> UnapprovedVisits { get; set; }
+        public IList<Organisation> OrganisationList { get; set; }
 
         //=====================================================================
         // Page Load - Get a list of all approved visits
         //=====================================================================
-        public IActionResult OnGetAsync()
+        public async Task OnGetAsync()
         {
             // create list of approved visits
             IQueryable<Visit> onSiteVisitors =
@@ -48,7 +51,8 @@ namespace OnSite.Pages
                 select visit;
             UnapprovedVisits = unapprovedVisits.ToList();
 
-            return Page();
+            // get list of all organisations
+            OrganisationList = await _context.Organisation.ToListAsync();
         }
 
         //=====================================================================
