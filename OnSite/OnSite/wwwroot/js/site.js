@@ -334,3 +334,51 @@ function loadUnapprovedVisitData(visitId) {
     });
 
 }
+
+//================================================================
+// Staff Member selected from list
+//================================================================
+function staffMemberSelected(staffId) {
+
+    // store the selected staff id
+    $("#staff-id-select input").val(staffId);
+
+    // show the row as selected
+    $("#staff-table-row-" + staffId).addClass('selected').siblings().removeClass('selected');
+}
+
+//================================================================
+// Staff Member search text updated
+//================================================================
+function searchStaff() {
+
+    // get the value entered by the user in search field
+    var searchTerm = $('#staff-select-search').val();
+
+    // get staff member records matching search
+    $.get("/StaffAccessManager?handler=StaffSearch&SearchString="
+        + searchTerm, function (response) {
+
+        // select the existing staff table and clear it
+        var staffTableBody = $("#select-staff-table-body");
+        staffTableBody.empty();
+
+        // populate the table using the query results
+        var obj = JSON.parse(response);
+        jQuery(obj).each(function (i, item) {
+
+            // add staff member record to the table
+            $(staffTableBody).append(
+                '<tr class="staff-table-row" id="staff-table-row-' +
+                    item.StaffId + '" onclick="staffMemberSelected(' + item.StaffId + ')">' +
+                    '<td>' + item.FirstName + '</td>' +
+                    '<td>' + item.LastName + '</td>' +
+                    '<td>' + item.Position + '</td>' +
+                '</tr>');
+        });
+
+        // show staff member as selected
+        staffMemberSelected($("#staff-id-select input").val());
+
+    });
+}

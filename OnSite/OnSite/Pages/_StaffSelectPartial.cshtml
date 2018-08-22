@@ -1,0 +1,46 @@
+﻿@model OnSite.Pages.StaffAccessManagerModel
+<div class="row">
+    <div class="col-sm-12">
+        <div class="staff-select-panel">
+
+            <!-- search field -->
+            <input id="staff-select-search" oninput="searchStaff()" placeholder="Search" />
+
+            <!-- list of staff members -->
+            <div id="staff-table-container">
+                <table id="select-staff-table">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Position</th>
+                        </tr>
+                    </thead>
+                    <tbody id="select-staff-table-body">
+                    @{ foreach (var staffMember in Model.GetAllStaff())
+                        {
+                        <tr class="staff-table-row" id="staff-table-row-@staffMember.StaffId"
+                            onclick="staffMemberSelected(@staffMember.StaffId)">
+                            <td>
+                                @staffMember.FirstName
+                            </td>
+                            <td>
+                                @staffMember.LastName
+                            </td>
+                            <td>
+                                @staffMember.Position
+                            </td>
+                        </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Hidden field to store selected staff id -->
+        <div class="form-group" id="staff-id-select">
+            <input asp-for="StaffAreaAccess.StaffId" class="form-control" style="display: none;">
+        </div>
+    </div>
+</div>

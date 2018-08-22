@@ -1,4 +1,50 @@
-﻿@model OnSite.Pages.VisitManagerModel
+﻿@model OnSite.Pages.StaffAccessManagerModel
+
+<div class="site-selection-panel">
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="staff-org-site-table" class="table">
+                <thead>
+                    <tr>
+                        <th> Organisation </th>
+                        <th> Street Address </th>
+                        <th> City </th>
+                        <th> State </th>
+                        <th> Postcode </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var count = 0;
+                        foreach (var item in Model.GetOrganisationSites())
+                        {
+                            count++;
+                            <tr id="OrgSiteEntry">
+                                @Html.HiddenFor(modelItem => item.OrgIDView, new { @id = "OrgIDDisplay_" + count })
+                                @Html.HiddenFor(modelItem => item.SiteIDView, new { @id = "SiteIDDisplay_" + count })
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrgNameView, new { @id = "custContainer", data_city = "23521" })
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SiteStreetAddressView)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SiteCityView)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SiteStateView)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SitePostCodeView)
+                                </td>
+                            </tr>
+                            }
+                        }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -44,7 +44,7 @@ td {
 }
 
 .selected {
-    background-color: brown;
+    background-color: #3598DC;
     color: #FFF;
 }
 
@@ -205,3 +205,25 @@ input {
     .combobox-option:hover {
         background: #c6c6c6;
     }
+
+/* Staff member selection panel */
+.staff-select-panel {
+    border: 1px solid #fff;
+}
+
+#staff-select-search {
+    margin-top: 5px;
+    width: calc(100% - 10px);
+}
+
+#staff-table-container {
+    border: 1px solid white;
+    margin: 5px;
+    height: 180px;
+    overflow-y: scroll;
+}
+
+#select-staff-table {
+    width: 100%;
+    background: #7c7c7c;
+}

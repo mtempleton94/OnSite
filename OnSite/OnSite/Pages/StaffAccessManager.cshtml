@@ -1,4 +1,22 @@
 ﻿@page
 @model StaffAccessManagerModel
-@{
-}
+<form method="post" id="staff-access-form">
+
+    <!-- staff member selection -->
+    <div class="container text-center">
+        <h2>Select Staff Member</h2>
+        @{ Html.RenderPartial("_StaffSelectPartial"); }
+    </div>
+
+    <!-- site selection -->
+    <div class="container text-center">
+        <h2>Select Sites Staff Member can Access</h2>
+        @{ Html.RenderPartial("_SiteSelectionPartial"); }
+    </div>
+
+    <!-- container for site cards -->
+    <div id="site-area-access-cards">
+        <!-- [TODO] -->
+    </div>
+
+</form>
