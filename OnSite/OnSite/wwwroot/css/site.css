@@ -206,24 +206,24 @@ input {
         background: #c6c6c6;
     }
 
-/* Staff member selection panel */
-.staff-select-panel {
+/* Staff member / site selection panel */
+.staff-select-panel, .site-select-panel {
     border: 1px solid #fff;
 }
 
-#staff-select-search {
+#staff-select-search, #site-select-search {
     margin-top: 5px;
     width: calc(100% - 10px);
 }
 
-#staff-table-container {
+#staff-table-container, #site-table-container {
     border: 1px solid white;
     margin: 5px;
     height: 180px;
     overflow-y: scroll;
 }
 
-#select-staff-table {
+#select-staff-table, #org-site-table {
     width: 100%;
     background: #7c7c7c;
 }

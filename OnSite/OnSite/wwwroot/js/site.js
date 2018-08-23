@@ -382,3 +382,40 @@ function searchStaff() {
 
     });
 }
+
+//================================================================
+// Site selected from list
+//================================================================
+function siteSelected(siteId) {
+
+    // [TODO] store the selected staff id
+
+    // show the row as selected
+    $("#site-table-row-" + siteId).addClass('selected').siblings().removeClass('selected');
+
+}
+
+//================================================================
+// Site area access form saved
+//================================================================
+document.getElementById("staff-access-submit-button").addEventListener("click", function (event) {
+    event.preventDefault();
+
+    var token = $(':input[name="__RequestVerificationToken"]').val();
+    $.ajax({
+        type: "POST",
+        url: '/StaffAccessManager?handler=StaffAccessUpdate',
+        data: JSON.stringify({
+            id: 1
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        headers: { "RequestVerificationToken": token },
+        success: function (response) {
+            alert(response);
+        },
+        failure: function (response) {
+            alert(response);
+        }
+    });
+});

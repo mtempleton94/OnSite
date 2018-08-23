@@ -58,7 +58,7 @@ namespace OnSite.Pages
         //=====================================================================
         // Get list of all staff members
         //=====================================================================
-        public IList<Staff> GetAllStaff ()
+        public IList<Staff> GetAllStaff()
         {
             // select all staff
             IQueryable<Staff> staffMembers =
@@ -129,10 +129,13 @@ namespace OnSite.Pages
             return OrganisationSiteList;
         }
 
-        /* public async Task<IActionResult> OnPostAsync()
+        //=====================================================================
+        // Save Updates to Areas Staff Member can access
+        //=====================================================================
+        public ActionResult OnPostStaffAccessUpdate(int id)
         {
-            // [TODO] add a new entry in the staff area access table
-        }*/
-
+            string jsonData = JsonConvert.SerializeObject("[TODO] Area Access Update");
+            return new JsonResult(jsonData);
+        }
     }
 }
