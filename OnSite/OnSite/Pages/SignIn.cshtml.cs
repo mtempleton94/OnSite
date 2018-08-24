@@ -77,19 +77,12 @@ namespace OnSite.Pages
         //=====================================================================
         // Display list of areas associated with site
         //=====================================================================
-        public JsonResult OnGetAreas(int OrgId, int SiteId)
+        public JsonResult OnGetAreas(int SiteId)
         {           
             IQueryable<Area> siteAreas = 
                 from area in _context.Area
                 where area.SiteId == SiteId
-                select new Area
-                {
-                    AreaId = area.AreaId,
-                    Floor = area.Floor,
-                    Description = area.Description,
-                    Classification = area.Classification,
-                    SiteId = area.SiteId
-                };
+                select area;
 
             // convert results to json and return
             string jsonData = JsonConvert.SerializeObject(siteAreas);

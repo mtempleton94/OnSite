@@ -38,8 +38,7 @@ $("#org-site-table tr").click(function () {
     $("#site-id-select select").val(selectedSiteID);
 
     // show the areas associated with the selected org / site
-    $.get("/SignIn?handler=Areas&OrgId=" + selectedOrgID +
-        "&SiteId=" + selectedSiteID, function (response) {
+    $.get("/SignIn?handler=Areas&SiteId=" + selectedSiteID, function (response) {
      
             var areaTableBody = $("#area-table-body");
 
