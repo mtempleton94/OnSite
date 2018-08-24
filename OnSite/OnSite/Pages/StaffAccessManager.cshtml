@@ -4,19 +4,22 @@
 
     <!-- staff member selection -->
     <div class="container text-center">
-        <h2>Select Staff Member</h2>
+        <h2>Staff Member</h2>
         @{ Html.RenderPartial("_StaffSelectPartial"); }
     </div>
 
     <!-- site selection -->
     <div class="container text-center">
-        <h2>Select Sites Staff Member can Access</h2>
+        <h2>Site Access Required</h2>
         @{ Html.RenderPartial("_SiteSelectionPartial"); }
     </div>
 
     <!-- container for site cards -->
-    <div id="site-area-access-cards">
-        <!-- [TODO] -->
+    <div class="container text-center">
+        <h2>Area Access Required</h2>
+        <div id="site-area-access-cards">
+            <div id="site-area-access-cards-content"></div>
+        </div>
     </div>
 
     <div class="form-group">

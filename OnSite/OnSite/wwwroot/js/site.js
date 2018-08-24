@@ -386,13 +386,43 @@ function searchStaff() {
 //================================================================
 // Site selected from list
 //================================================================
+var selectedSites = [];
 function siteSelected(siteId) {
 
-    // [TODO] store the selected staff id
+    // check if the site is already stored, in which case it was deselected
+    if (jQuery.inArray(siteId, selectedSites) !== -1) {
 
-    // show the row as selected
-    $("#site-table-row-" + siteId).addClass('selected').siblings().removeClass('selected');
+        // remove item from array
+        selectedSites.splice($.inArray(siteId, selectedSites), 1);
 
+        // deselect the table row
+        $("#site-table-row-" + siteId).removeClass('selected');
+
+    } else {
+
+        // add site to list
+        selectedSites.push(siteId);
+
+        // show row as selected
+        $("#site-table-row-" + siteId).addClass('selected');
+
+    }
+
+    // clear all area cards currently displayed
+    var siteCardsDiv = $("#site-area-access-cards-content");
+    siteCardsDiv.empty();
+
+    // add a card for each of the selected sites
+    for (var i = 0; i < selectedSites.length; i++) {
+        $("#site-area-access-cards-content").append(
+            "<div class=\"area-access-card\">" +
+                "<h2></h2>" +
+                "<div class=\"area-access-card-body\">" +
+                    "[LIST GOES HERE]" +
+                "</div" +
+            "</div>"
+        );
+    }
 }
 
 //================================================================
