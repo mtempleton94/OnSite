@@ -383,6 +383,35 @@ function searchStaff() {
 }
 
 //================================================================
+// Area selected from list on Staff Area Access Page
+//================================================================
+var selectedAreas = [];
+function staffAreaSelected(areaId) {
+
+    // check if the area is already stored, in which case it was deselected
+    if (jQuery.inArray(areaId, selectedAreas) !== -1) {
+
+        // remove item from array
+        selectedAreas.splice($.inArray(areaId, selectedAreas), 1);
+
+        // deselect the table row
+        $("#area-table-row-" + areaId).removeClass('selected');
+
+    } else {
+
+        // add site to list
+        selectedAreas.push(areaId);
+
+        // show row as selected
+        $("#area-table-row-" + areaId).addClass('selected');
+
+    }
+
+    console.log(selectedAreas);
+
+}
+
+//================================================================
 // Site selected from list
 //================================================================
 var selectedSites = [];
