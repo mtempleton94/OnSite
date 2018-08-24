@@ -413,14 +413,41 @@ function siteSelected(siteId) {
 
     // add a card for each of the selected sites
     for (var i = 0; i < selectedSites.length; i++) {
+
+        // create the card
         $("#site-area-access-cards-content").append(
             "<div class=\"area-access-card\">" +
-                "<h2></h2>" +
+            "<h2>" + selectedSites[i]+"</h2>" +
                 "<div class=\"area-access-card-body\">" +
-                    "[LIST GOES HERE]" +
-                "</div" +
+                    "<div id=\"area-table-container\">" +
+                        "<table id=\"select-areas-table\">" +
+                            "<tbody id=\"select-areas-table-body-" + selectedSites[i] +"\"></tbody>" +
+                        "</table>" +
+                    "</div>" +
+                "</div>" +
             "</div>"
         );
+
+        // get areas for each site
+        $.get("/SignIn?handler=Areas&SiteId=" + selectedSites[i], function (response) {
+
+            // clear the existing content from the card
+            var selectAreasBody = $("#select-areas-table-body-" + selectedSites[i]);
+            selectAreasBody.empty();
+
+            // parse response and build a list of areas
+            var obj = JSON.parse(response);
+            jQuery(obj).each(function (j, item) {
+
+            // add an area to the list of areas on the card
+                $("#select-areas-table-body-" + item.SiteId).append
+                    ("<tr class='area-table-row' id='area-table-row-" + item.AreaId + "' onclick='staffAreaSelected(" + item.AreaId + ")'>" +
+                        "<td>" + item.AreaId + "</td>" +
+                        "<td>" + item.Floor + "</td>"+
+                        "<td>" + item.Description + "</td>"+
+                    +"</tr>");
+            });
+        });
     }
 }
 
