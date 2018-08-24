@@ -407,8 +407,6 @@ function staffAreaSelected(areaId) {
 
     }
 
-    console.log(selectedAreas);
-
 }
 
 //================================================================
