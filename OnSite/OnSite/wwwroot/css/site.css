@@ -217,6 +217,22 @@ input {
     border: 1px solid #fff;
 }
 
+.site-select-panel {
+    background: #7c7c7c;
+    min-height: 225px;
+}
+
+#site-access-placeholder, #site-cards-placeholder {
+    display: inline-block;
+    line-height: 225px;
+    font-size: 20px;
+}
+
+#site-cards-placeholder {
+    line-height: 322px;
+}
+
+
 #staff-select-search, #site-select-search {
     margin-top: 5px;
     width: calc(100% - 10px);

@@ -3,11 +3,14 @@
     <div class="col-sm-12">
         <div class="site-select-panel">
 
+            <!-- placeholder displayed while no staff member is selected -->
+            <div id="site-access-placeholder">Select a Staff Member</div>
+
             <!-- search field -->
-            <input id="site-select-search" oninput="searchSites()" placeholder="Search" />
+            <input id="site-select-search" oninput="searchSites()" placeholder="Search" style="display: none" />
 
             <!-- list of staff members -->
-            <div id="site-table-container">
+            <div id="site-table-container" style="display: none">
                 <table id="site-select-table" class="table">
                     <thead>
                         <tr>

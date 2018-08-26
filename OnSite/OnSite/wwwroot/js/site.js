@@ -339,11 +339,25 @@ function loadUnapprovedVisitData(visitId) {
 //================================================================
 function staffMemberSelected(staffId) {
 
-    // store the selected staff id
-    $("#staff-id-select input").val(staffId);
+    // check staff id has been passed
+    if (staffId != "") {
 
-    // show the row as selected
-    $("#staff-table-row-" + staffId).addClass('selected').siblings().removeClass('selected');
+        // display site selection fields
+        $("#site-select-search").css("display", "inline-block");
+        $("#site-table-container").css("display", "block");
+
+        // store the selected staff id
+        $("#staff-id-select input").val(staffId);
+
+        // show the row as selected
+        $("#staff-table-row-" + staffId).addClass('selected').siblings().removeClass('selected');
+
+        // update display of the site selection panel
+        $(".site-select-panel").css("background", "#404040");
+
+        // hide site selection hint text
+        $("#site-access-placeholder").hide();
+    }
 }
 
 //================================================================
@@ -475,6 +489,13 @@ function siteSelected(siteId) {
                     +"</tr>");
             });
         });
+    }
+
+    // check if site is selected and display tip text as necessary
+    if (selectedSites.length > 0) {
+        $("#site-cards-placeholder").hide();
+    } else {
+        $("#site-cards-placeholder").show();
     }
 }
 
